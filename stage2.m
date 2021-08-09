@@ -1,15 +1,29 @@
+### MIT License
+### 
+### Copyright (c) 2021 Patryk Maciej Król
+### 
+### Permission is hereby granted, free of charge, to any person obtaining a copy
+### of this software and associated documentation files (the "Software"), to deal
+### in the Software without restriction, including without limitation the rights
+### to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+### copies of the Software, and to permit persons to whom the Software is
+### furnished to do so, subject to the following conditions:
+### 
+### The above copyright notice and this permission notice shall be included in all
+### copies or substantial portions of the Software.
+### 
+### THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+### IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+### FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+### AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+### LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+### OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+### SOFTWARE.
+
 ### Stage two is to recognise eight circles (holes) in each sample using
 ### OpenCV HoughCircles function and write it to txt file. 
 
 INFO = "After first run check images folder and each sample. If any circle in sample is recognised VERY bad (ie. not hole but dirt is marked), remove corresponding txt file and go to stage3. It is also possible to remove (losslessly, ie. with GIMP) dirt from source folder's sample, so it won't be recognised again. If so, remove corresponding txt file and rerun stage2. \nDue to stage three (which suppose to improve recognition) stage2 is not very critical to be accurate.\n";
-
-### License: CC-BY
-### This license lets others distribute, remix, adapt, and build upon your work, even commercially, 
-### as long as they credit you for the original creation. This is the most accommodating of licenses offered. 
-### https://creativecommons.org/licenses/?lang=en
-
-### For more information check: [todo]
-
 
 # config
 input_directory = 'output-s1/';
