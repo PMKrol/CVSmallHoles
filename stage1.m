@@ -1,16 +1,30 @@
+### MIT License
+### 
+### Copyright (c) 2021 Patryk Maciej Król
+### 
+### Permission is hereby granted, free of charge, to any person obtaining a copy
+### of this software and associated documentation files (the "Software"), to deal
+### in the Software without restriction, including without limitation the rights
+### to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+### copies of the Software, and to permit persons to whom the Software is
+### furnished to do so, subject to the following conditions:
+### 
+### The above copyright notice and this permission notice shall be included in all
+### copies or substantial portions of the Software.
+### 
+### THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+### IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+### FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+### AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+### LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+### OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+### SOFTWARE.
+
 ### Stage one is to convert source images to grayscale,
 ### cut not-hole colours (grayscale values) ans split it into samples.
 ### no magic done here...
 
 INFO = "After first run go to output_directory/images and check samples coords and histograms on image should be two peaks - one for holes (left one) and one for board color (right)\n firstPeak should be somewhere on the left from local minimum between two main peaks. \nsecondPeak - on the right. Change config variables if it is not. \n\nIf Your samples differs, change sample_coords. \nhint: use gimp to find coords and size or calculate it its important to remove (not include) anything that is not a hole ie. edge od sample. \n";
-
-### License: CC-BY
-### This license lets others distribute, remix, adapt, and build upon your work, even commercially, 
-### as long as they credit you for the original creation. This is the most accommodating of licenses offered. 
-### https://creativecommons.org/licenses/?lang=en
-
-### For more information check: [todo]
-
 
 #config 
 input_directory = 'source/';
