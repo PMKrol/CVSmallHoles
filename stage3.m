@@ -1,16 +1,31 @@
+### MIT License
+### 
+### Copyright (c) 2021 Patryk Maciej Król
+### 
+### Permission is hereby granted, free of charge, to any person obtaining a copy
+### of this software and associated documentation files (the "Software"), to deal
+### in the Software without restriction, including without limitation the rights
+### to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+### copies of the Software, and to permit persons to whom the Software is
+### furnished to do so, subject to the following conditions:
+### 
+### The above copyright notice and this permission notice shall be included in all
+### copies or substantial portions of the Software.
+### 
+### THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+### IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+### FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+### AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+### LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+### OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+### SOFTWARE.
+
 ### Stage3 is to correct circles individually - it cuts prerecognised (in stage2)
 ### circle (hole) and looks for coordinates again. This time by calculating „weight”
 ### center of black blob. If better recognition is needed, this is first place 
 ### to start improvements
 
 INFO = "\nAfter this stage, go to images folder in output_directory and check if holes are recognised well. This time it is critical, so every „bad ones” txt files should be romeved (or corrected and reprocessed).\n";
-
-### License: CC-BY
-### This license lets others distribute, remix, adapt, and build upon your work, even commercially, 
-### as long as they credit you for the original creation. This is the most accommodating of licenses offered. 
-### https://creativecommons.org/licenses/?lang=en
-
-### For more information check: [todo]
 
 #config
 
