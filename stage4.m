@@ -1,6 +1,6 @@
 ### MIT License
 ### 
-### Copyright (c) 2021 Patryk Maciej Król
+### Copyright (c) 2021-2022 Patryk Maciej Król
 ### 
 ### Permission is hereby granted, free of charge, to any person obtaining a copy
 ### of this software and associated documentation files (the "Software"), to deal
@@ -26,9 +26,11 @@
 #config
 #for painting only
 lowMargin = 50;
+dpi = 4800;
 
 input_directory = 'output-s3/';
 output_directory = 'output-s4/';
+input_directory_st1 = 'output-s1/';
 
 # all points:
 # 1   2   3
@@ -36,16 +38,16 @@ output_directory = 'output-s4/';
 # 6   7   8
                     # X           Y
 allPoints   =      [  0           0           ;
-                      0           0.3*4800    ;
-                      0           0.6*4800    ;
+                      0           0.3*dpi    ;
+                      0           0.6*dpi    ;
                       
-                      0.3*4800    0           ;
-                      0.3*4800    0.6*4800    ;
+                      0.3*dpi    0           ;
+                      0.3*dpi    0.6*dpi    ;
                       
                       
-                      0.6*4800    0           ;
-                      0.6*4800    0.3*4800    ;
-                      0.6*4800    0.6*4800 ];  
+                      0.6*dpi    0           ;
+                      0.6*dpi    0.3*dpi    ;
+                      0.6*dpi    0.6*dpi ];  
 
 #end of config
 
@@ -85,7 +87,7 @@ for fileno=3:length(filenames)
   file_exists = exist([output_directory basename '.txt']);
   
   if file_exists == 2
-   printf("\n%s: Output exists!\n", basename);
+   printf("%s: Output exists!\n", basename);
    continue
   endif 
   
@@ -107,18 +109,18 @@ for fileno=3:length(filenames)
   #This if uncomented generates images also.
   
   #Get hole radius from filename
-  holeRad = str2num(basename(4:5))/254*4800/2;
+  holeRad = str2num(basename(7:8))/254*dpi/2;
   
-  im_highRes = imread(['output-s1/' basename '.tiff']);
+  im_highRes = imread([input_directory_st1 basename '.png']);
   for i=1:8
-    im_highRes = cv.circle(im_highRes, [sample(i,2) sample(i,1)], holeRad+5, 'Color', 'r', 'Thickness', 3);
+    im_highRes = cv.circle(im_highRes, [sample(i,1) sample(i,2)], holeRad+5, 'Color', 'r', 'Thickness', 3);
     
     if holeRad > 50
-      im_highRes = cv.circle(im_highRes, [sample(i,2) sample(i,1)], holeRad-lowMargin, 'Color', 'r', 'Thickness', 3);
+      im_highRes = cv.circle(im_highRes, [sample(i,1) sample(i,2)], holeRad-lowMargin, 'Color', 'r', 'Thickness', 3);
     endif
   endfor
 
-  imwrite(im_highRes, [output_directory 'images/' basename '.tiff']);
+  imwrite(im_highRes, [output_directory 'images/' basename '.png']);
   ### end of image creation
   
   #Print result

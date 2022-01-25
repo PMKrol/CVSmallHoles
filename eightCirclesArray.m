@@ -16,7 +16,7 @@ function circlesArrayFlat = eightCirclesArray(gr_highRes, radMin, radMax)
       continue;
     endif
         
-    #cumulate results in one array [y1 x1 , y2, x2 ... y16 x16]
+    #cumulate results in one array [x1, y1, x2, y2 ... ]
     if(size(circles)(2) == 8)
       ok = 1;
       
@@ -28,9 +28,8 @@ function circlesArrayFlat = eightCirclesArray(gr_highRes, radMin, radMax)
       circlesArray = sortArray(circlesArray);
       
       for hole=1:8
-        # -4.5 empirical values. Should make no difference.
-        circlesArrayFlat(1, (hole-1)*2 + 1) = circlesArray(hole, 2) - 4.5;  #x
-        circlesArrayFlat(1, (hole-1)*2 + 2) = circlesArray(hole, 1) - 4.5;  #y
+        circlesArrayFlat(1, (hole-1)*2 + 1) = circlesArray(hole, 1);  #x
+        circlesArrayFlat(1, (hole-1)*2 + 2) = circlesArray(hole, 2);  #y
       endfor
       
       circlesArrayFlat(1, 17) = radMin;
@@ -41,5 +40,7 @@ function circlesArrayFlat = eightCirclesArray(gr_highRes, radMin, radMax)
       return
     endif
   endfor
+  
+  circlesArrayFlat = -1;
   
 endfunction
