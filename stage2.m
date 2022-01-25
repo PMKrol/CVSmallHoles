@@ -1,6 +1,6 @@
 ### MIT License
 ### 
-### Copyright (c) 2021 Patryk Maciej Król
+### Copyright (c) 2021-2022 Patryk Maciej Król
 ### 
 ### Permission is hereby granted, free of charge, to any person obtaining a copy
 ### of this software and associated documentation files (the "Software"), to deal
@@ -23,11 +23,15 @@
 ### Stage two is to recognise eight circles (holes) in each sample using
 ### OpenCV HoughCircles function and write it to txt file. 
 
-INFO = "After first run check images folder and each sample. If any circle in sample is recognised VERY bad (ie. not hole but dirt is marked), remove corresponding txt file and go to stage3. It is also possible to remove (losslessly, ie. with GIMP) dirt from source folder's sample, so it won't be recognised again. If so, remove corresponding txt file and rerun stage2. \nDue to stage three (which suppose to improve recognition) stage2 is not very critical to be accurate.\n";
+# changelog: remove info, remove image creation.
+
+#no longer needed
+#INFO = "After first run check images folder and each sample. If any circle in sample is recognised VERY bad (ie. not hole but dirt is marked), remove corresponding txt file and go to stage3. It is also possible to remove (losslessly, ie. with GIMP) dirt from source folder's sample, so it won't be recognised again. If so, remove corresponding txt file and rerun stage2. \nDue to stage three (which suppose to improve recognition) stage2 is not very critical to be accurate.\n";
 
 # config
 input_directory = 'output-s1/';
 output_directory = 'output-s2/';
+dpi = 4800;
 
 #Hole size - lowMargin gives minimum hole size for HoughCircles function
 # but not smaller than min_hole_size
@@ -63,7 +67,7 @@ for sample=3:size(filenames)(1)
   [~, basename, ext] = fileparts ([input_directory filenames(sample).name]);
   
   #get hole diameter (px) from filename
-  holeRad = str2num(basename(4:5))/254*4800/2;
+  holeRad = str2num(basename(7:8))/254*dpi/2;
   
   #calculate new lowMargin if it is too big
   if holeRad-lowMargin < minimumHoleSize
@@ -80,8 +84,16 @@ for sample=3:size(filenames)(1)
   endif 
   
   #load sample image and find eight circles
-  bw_gray = imread([input_directory basename '.tiff']);
+  bw_gray = imread([input_directory basename '.png']);
+  
+  ## [x1 y1, x2 y2 ... x8 y8] radMin, radMax, p, toc
   outArray = eightCirclesArray(bw_gray, holeRad-lowMargin, holeRad+15);
+  
+  if outArray == -1
+   string = sprintf("\n%s: Error detecting holes!\n", basename);
+   printf("%s", string);
+   continue
+  endif
   
   #if failed, continue
   if size(outArray)(1) == 0 
@@ -89,20 +101,25 @@ for sample=3:size(filenames)(1)
     continue;
   endif
 
-  #save output to txt file  
+  #save output to txt file: [x1 y1, x2 y2 ... x8 y8] radMin, radMax, p, toc
+  # holes no:
+  #   1   2   3
+  #   4       5
+  #   6   7   8
   save([output_directory basename '.txt'], 'outArray'); 
   
   #draw images with recognised circles and save it in images folder
   for i=1:8
-    bw_gray = cv.circle(bw_gray, [outArray(i*2) outArray(i*2 - 1)], holeRad+15, 'Color', 'r', 'Thickness', 3);
-    
+    circleRad = holeRad+15;
     if holeRad < lowMargin
-      bw_gray = cv.circle(bw_gray, [outArray(i*2) outArray(i*2 - 1)], holeRad-lowMargin, 'Color', 'r', 'Thickness', 3);
+      circleRad = holeRad-lowMargin;
     endif
-  
+      
+    bw_gray = cv.circle(bw_gray, [outArray(i*2-1) outArray(i*2)], circleRad, 'Color', 'r', 'Thickness', 3);
+    
   endfor
 
-  imwrite(bw_gray, [output_directory 'images/' basename '.tiff']);
+  imwrite(bw_gray, [output_directory 'images/' basename '.png']);
   
   #print timings
   string = sprintf("\n%s: ok in %d s.", basename, toc);
@@ -137,5 +154,5 @@ for sample=3:size(filenames)(1)
   printf("\n");
 endfor
 
-printf("\nDONE!\n\n");
-printf("INFO");
+##printf("\nDONE!\n\n");
+##printf("INFO");
